@@ -1,24 +1,27 @@
-/* ── Viewport lock: full height, no page scroll ── */
+/* ════════════════════════════════
+   Viewport lock — no page scroll
+   ════════════════════════════════ */
 .app-wrapper {
   height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: 16px 24px 0;
+  padding: 16px 20px 0;
   box-sizing: border-box;
 }
 
+/* ── 3-column layout ── */
 .app-layout {
   display: grid;
-  grid-template-columns: 240px 1fr 230px;
-  gap: 14px;
+  grid-template-columns: 230px 1fr 220px;
+  gap: 12px;
   max-width: 960px;
   width: 100%;
   margin: 0 auto;
   flex: 1;
   min-height: 0;
   overflow: hidden;
-  padding-bottom: 16px;
+  padding-bottom: 14px;
   box-sizing: border-box;
 }
 
@@ -26,19 +29,21 @@
 .left-col {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   overflow-y: auto;
   min-height: 0;
+  min-width: 0;
 }
 .right-col {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   overflow-y: auto;
   min-height: 0;
+  min-width: 0;
 }
 
-/* Thin scrollbars for side columns */
+/* Thin scrollbars */
 .left-col::-webkit-scrollbar,
 .right-col::-webkit-scrollbar { width: 3px; }
 .left-col::-webkit-scrollbar-track,
@@ -49,11 +54,11 @@
   border-radius: 4px;
 }
 
-/* Floating Action Button */
+/* ── FAB ── */
 .fab-add {
   position: fixed;
-  bottom: 28px;
-  right: 28px;
+  bottom: 24px;
+  right: 24px;
   z-index: 50;
   background: var(--gold);
   border: none;
@@ -68,10 +73,77 @@
   align-items: center;
   gap: 6px;
   box-shadow: 0 4px 24px rgba(224,140,10,0.45);
-  transition: transform 0.15s ease, opacity 0.15s;
+  transition: transform 0.15s ease, box-shadow 0.15s;
   touch-action: manipulation;
+  white-space: nowrap;
 }
-.fab-add:hover  { transform: translateY(-2px); opacity: 0.9; }
+.fab-add:hover  { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(224,140,10,0.55); }
 .fab-add:active { transform: scale(0.96); }
-.fab-icon { font-size: 18px; line-height: 1; }
+.fab-icon { font-size: 18px; line-height: 1; flex-shrink: 0; }
 .fab-text { letter-spacing: 0.01em; }
+
+/* ════════════════════════════════
+   RWD — 1060px: compress slightly
+   ════════════════════════════════ */
+@media (max-width: 1060px) {
+  .app-layout {
+    grid-template-columns: 210px 1fr 200px;
+    gap: 10px;
+  }
+}
+
+/* ════════════════════════════════
+   RWD — 840px: hide right panel
+   ════════════════════════════════ */
+@media (max-width: 840px) {
+  .app-wrapper { padding: 14px 16px 0; }
+  .app-layout {
+    grid-template-columns: 210px 1fr;
+    gap: 10px;
+  }
+  .right-col { display: none; }
+  .fab-add { bottom: 20px; right: 16px; }
+}
+
+/* ════════════════════════════════
+   RWD — 640px: single column
+   ════════════════════════════════ */
+@media (max-width: 640px) {
+  .app-wrapper {
+    padding: 12px 12px 0;
+    height: auto;          /* allow full-page scroll on mobile */
+    min-height: 100dvh;
+    overflow: visible;
+  }
+  .app-layout {
+    grid-template-columns: 1fr;
+    overflow: visible;
+    min-height: 0;
+    padding-bottom: 80px;  /* room for FAB */
+  }
+  .left-col  { overflow: visible; }
+  .right-col { display: none; }
+
+  /* On mobile, feed panel scrolls with the page — reset internal scroll */
+  .feed-panel {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .feed-list {
+    overflow: visible !important;
+    flex: none !important;
+    max-height: none !important;
+  }
+
+  /* Compact FAB on mobile */
+  .fab-add { padding: 10px 16px; font-size: 13px; }
+  .fab-text { display: none; }
+  .fab-icon { font-size: 22px; }
+}
+
+/* ════════════════════════════════
+   RWD — 480px: tiny phones
+   ════════════════════════════════ */
+@media (max-width: 480px) {
+  .app-wrapper { padding: 10px 10px 0; }
+}

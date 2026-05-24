@@ -6,25 +6,33 @@
   border-bottom: 1px solid var(--border);
   margin-bottom: 14px;
   flex-shrink: 0;
+  gap: 10px;
+  min-width: 0;
 }
 
 .topbar-title {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
+  min-width: 0;
 }
-.topbar-icon { font-size: 20px; }
+.topbar-icon { font-size: 20px; flex-shrink: 0; }
 .topbar-name {
   font-size: 20px;
   font-weight: 700;
   color: var(--gold-lt);
   letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 .topbar-right {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .topbar-streak {
@@ -69,4 +77,10 @@
 @keyframes pulse-red {
   from { border-color: rgba(239,68,68,0.35); }
   to   { border-color: rgba(239,68,68,0.65); }
+}
+
+/* RWD — hide streak text on very narrow screens */
+@media (max-width: 480px) {
+  .topbar-streak span:last-child { display: none; }
+  .topbar-name { font-size: 17px; }
 }

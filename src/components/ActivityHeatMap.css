@@ -1,44 +1,50 @@
-.heatmap-wrap {
-  position: relative;
-}
+.heatmap-wrap { position: relative; }
 
+/* ── Header ── */
 .heatmap-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
-/* Legend */
 .heatmap-legend {
   display: flex;
   align-items: center;
   gap: 3px;
+  flex-shrink: 0;
 }
-.heatmap-legend-label {
-  font-size: 9px;
-  color: var(--muted);
-}
+.heatmap-legend-label { font-size: 9px; color: var(--muted); }
 .heatmap-legend-cell {
-  width: 10px;
-  height: 10px;
+  width: 10px; height: 10px;
   border-radius: 2px;
   border: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
 }
 
-/* Layout */
+/* ── Body layout ── */
 .heatmap-body {
   display: flex;
-  gap: 6px;
-  align-items: flex-end;
+  gap: 5px;
+  align-items: flex-start;
+  overflow-x: auto;           /* scroll horizontally on tiny screens */
+  padding-bottom: 2px;
+}
+.heatmap-body::-webkit-scrollbar { height: 3px; }
+.heatmap-body::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
 }
 
-/* Day labels column */
+/* ── Day labels ── */
 .heatmap-days {
   display: grid;
   grid-template-rows: repeat(7, 14px);
   gap: 2px;
-  padding-top: 18px; /* align with cells below month labels */
+  padding-top: 18px;
+  flex-shrink: 0;
 }
 .heatmap-day-label {
   font-size: 9px;
@@ -46,20 +52,21 @@
   line-height: 14px;
   text-align: right;
   white-space: nowrap;
+  user-select: none;
 }
 
-/* Grid wrapper (month labels + cell grid) */
+/* ── Grid wrapper ── */
 .heatmap-grid-wrap {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  flex: 1;
-  min-width: 0;
+  flex-shrink: 0;
 }
 
-/* Month labels row */
+/* ── Month row ── */
 .heatmap-months {
   display: grid;
+  grid-template-columns: repeat(14, 14px);
   gap: 2px;
   height: 14px;
 }
@@ -69,49 +76,61 @@
   line-height: 14px;
   white-space: nowrap;
   overflow: visible;
+  user-select: none;
 }
 
-/* Cell grid */
+/* ── Cell grid ── */
 .heatmap-grid {
   display: grid;
+  grid-template-columns: repeat(14, 14px);
   grid-template-rows: repeat(7, 14px);
   gap: 2px;
-  width: fit-content;
 }
 .heatmap-cell {
-  width: 14px;
-  height: 14px;
+  width: 14px; height: 14px;
   border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.04);
   cursor: default;
-  transition: transform 0.1s ease, opacity 0.1s;
+  transition: transform 0.12s ease;
+}
+.heatmap-cell--active {
+  border-color: rgba(224,140,10,0.18);
+  cursor: crosshair;
 }
 .heatmap-cell:hover {
-  transform: scale(1.4);
+  transform: scale(1.5);
   z-index: 2;
-  opacity: 1 !important;
+  position: relative;
 }
 
-/* Tooltip */
+/* ── Tooltip — position:fixed so no parent overflow clips it ── */
 .heatmap-tooltip {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: #1e2030;
-  border: 1px solid var(--border-h);
+  position: fixed;           /* ← key: viewport-relative, never clipped */
+  transform: translate(-50%, calc(-100% - 10px));
+  background: #1c1c2a;
+  border: 1px solid rgba(255,255,255,0.18);
   border-radius: var(--radius-sm);
-  padding: 6px 10px;
-  font-size: 11px;
-  color: var(--text);
-  white-space: nowrap;
+  padding: 6px 12px;
   pointer-events: none;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-  z-index: 10;
+  gap: 1px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.55);
+  z-index: 9999;
+  animation: tooltipIn 0.1s ease;
+  white-space: nowrap;
+}
+@keyframes tooltipIn {
+  from { opacity: 0; transform: translate(-50%, calc(-100% - 4px)); }
+  to   { opacity: 1; transform: translate(-50%, calc(-100% - 10px)); }
 }
 .heatmap-tooltip strong {
   font-size: 12px;
+  font-weight: 600;
   color: var(--gold-lt);
+  display: block;
+}
+.heatmap-tooltip span {
+  font-size: 11px;
+  color: var(--text-2);
 }

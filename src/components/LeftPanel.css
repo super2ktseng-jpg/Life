@@ -2,9 +2,9 @@
 .left-panel {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  width: 240px;
-  flex-shrink: 0;
+  gap: 10px;
+  width: 100%;        /* fill the .left-col grid cell */
+  min-width: 0;
 }
 
 /* Cat card */
@@ -68,6 +68,9 @@
   color: rgba(251,191,36,0.6);
   text-align: center;
   letter-spacing: 0.02em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Radar chart */
@@ -113,9 +116,22 @@
   display: flex; flex-direction: column; align-items: center; gap: 2px;
 }
 .stat-value {
-  font-size: 20px; font-weight: 700; color: var(--gold-lt);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gold-lt);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 }
-.stat-label { font-size: 10px; color: var(--muted); }
+.stat-label {
+  font-size: 10px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
 
 /* Badges */
 .badges-grid {
