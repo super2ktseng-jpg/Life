@@ -15,7 +15,7 @@ function formatDate(dateStr) {
   return d.toLocaleDateString('zh-TW', { month: 'long', day: 'numeric', weekday: 'short' })
 }
 
-export default function FeedPanel({ state, onOpenAdd }) {
+export default function FeedPanel({ state, onOpenAdd, onDelete }) {
   const [filter, setFilter] = useState('all')
 
   const today = new Date().toISOString().slice(0, 10)
@@ -65,7 +65,7 @@ export default function FeedPanel({ state, onOpenAdd }) {
           </div>
         ) : (
           displayEntries.map(entry => (
-            <EntryCard key={entry.id} entry={entry} />
+            <EntryCard key={entry.id} entry={entry} onDelete={onDelete} />
           ))
         )}
       </div>

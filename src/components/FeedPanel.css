@@ -3,6 +3,9 @@
   flex-direction: column;
   gap: 12px;
   min-width: 0;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .feed-header {
@@ -66,8 +69,19 @@
 }
 
 .feed-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
+}
+
+/* Thin scrollbar for feed */
+.feed-list::-webkit-scrollbar { width: 3px; }
+.feed-list::-webkit-scrollbar-track { background: transparent; }
+.feed-list::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.12);
+  border-radius: 4px;
 }
 
 .feed-empty {
@@ -82,21 +96,3 @@
   margin-top: 6px;
 }
 
-.feed-add-btn {
-  background: var(--gold);
-  border: none;
-  border-radius: var(--radius-pill);
-  color: #000;
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 700;
-  padding: 12px;
-  cursor: pointer;
-  width: 100%;
-  margin-top: auto;
-  transition: opacity 0.15s;
-}
-
-.feed-add-btn:hover {
-  opacity: 0.85;
-}

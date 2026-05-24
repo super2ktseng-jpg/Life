@@ -12,6 +12,7 @@ function App() {
   const {
     state,
     addEntry,
+    deleteEntry,
     completeRandomQuest,
     levelUpInfo,
     clearLevelUp,
@@ -40,6 +41,7 @@ function App() {
         <FeedPanel
           state={state}
           onOpenAdd={() => setShowAddModal(true)}
+          onDelete={deleteEntry}
         />
 
         <div className="right-col">

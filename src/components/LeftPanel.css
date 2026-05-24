@@ -15,10 +15,39 @@
   font-size: 11px; font-weight: 700;
   padding: 2px 8px; border-radius: var(--radius-pill);
 }
+
+/* Canvas wrap — bob animation */
 .cat-canvas-wrap {
-  display: flex; justify-content: center;
+  display: flex;
+  justify-content: center;
   padding: 12px 0;
+  animation: catBob 3s ease-in-out infinite;
 }
+@keyframes catBob {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}
+
+/* Equipment badge overlay */
+.cat-canvas-inner {
+  position: relative;
+  display: inline-block;
+}
+.cat-equip-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 20px;
+  filter: drop-shadow(0 0 6px rgba(224,140,10,0.9));
+  animation: equipFloat 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes equipFloat {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50%       { transform: translateY(-4px) rotate(8deg); }
+}
+
+/* XP section */
 .xp-section { margin-top: 8px; }
 .xp-label-row {
   display: flex; justify-content: space-between;
@@ -37,12 +66,44 @@
   transition: width 0.4s ease;
 }
 
+/* Next item hint */
+.next-item-hint {
+  margin-top: 8px;
+  font-size: 10px;
+  color: rgba(251,191,36,0.6);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
 /* Radar chart */
 .radar-card { text-align: center; }
 .radar-wrap {
   display: flex;
   justify-content: center;
   margin-top: 4px;
+}
+
+/* Stats toggle button */
+.stats-toggle-btn {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.stats-toggle-btn:hover {
+  color: var(--text);
+  border-color: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.07);
 }
 
 /* Stats grid */

@@ -281,6 +281,18 @@ export function useGameState() {
   }
 
   // -------------------------------------------------------------------------
+  // deleteEntry
+  // -------------------------------------------------------------------------
+  const deleteEntry = (id) => {
+    setState(prev => {
+      if (!prev) return prev
+      const next = { ...prev, entries: prev.entries.filter(e => e.id !== id) }
+      saveState(next)
+      return next
+    })
+  }
+
+  // -------------------------------------------------------------------------
   // Clearers
   // -------------------------------------------------------------------------
   const clearLevelUp = () => setLevelUpInfo(null)
@@ -289,6 +301,7 @@ export function useGameState() {
   return {
     state,
     addEntry,
+    deleteEntry,
     completeRandomQuest,
     levelUpInfo,
     clearLevelUp,
