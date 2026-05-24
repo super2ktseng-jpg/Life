@@ -85,6 +85,19 @@ export function useGameState() {
     const today = todayStr()
     let s = loadState() ?? buildInitialState()
 
+    // Reconcile badges: add any new badge definitions missing from stored state
+    s = {
+      ...s,
+      badges: BADGE_DEFINITIONS.map(def => {
+        const existing = s.badges.find(b => b.id === def.id)
+        return existing ?? { id: def.id, unlockedAt: null }
+      }),
+      inventory: ITEM_DEFINITIONS.map(def => {
+        const existing = s.inventory.find(i => i.id === def.id)
+        return existing ?? { id: def.id, unlockedAt: null }
+      }),
+    }
+
     // 1. Streak check
     const streakResult = checkStreak(s.profile.lastActiveDate, s.profile.streak, today)
     s = {
@@ -147,6 +160,9 @@ export function useGameState() {
   // addEntry
   // -------------------------------------------------------------------------
   const addEntry = (title, category, points) => {
+    let capturedLevelUp = null
+    let capturedBadges = []
+
     setState(prev => {
       if (!prev) return prev
       const today = todayStr()
@@ -206,23 +222,25 @@ export function useGameState() {
       const updatedInventory = checkItemUnlocks(next.inventory, newLevel)
       next = { ...next, badges: updatedBadges, inventory: updatedInventory }
 
-      // 5. Side-effects (level-up, badges) — schedule micro-task so setState settles first
-      if (newLevel > prevLevel) {
-        setLevelUpInfo({ level: newLevel })
-      }
-      if (newlyUnlocked.length > 0) {
-        setNewBadges(bprev => [...bprev, ...newlyUnlocked])
-      }
+      // 5. Capture side-effect values — setters are called after setState returns
+      if (newLevel > prevLevel) capturedLevelUp = { level: newLevel }
+      if (newlyUnlocked.length > 0) capturedBadges = newlyUnlocked
 
       saveState(next)
       return next
     })
+
+    if (capturedLevelUp) setLevelUpInfo(capturedLevelUp)
+    if (capturedBadges.length > 0) setNewBadges(prev => [...prev, ...capturedBadges])
   }
 
   // -------------------------------------------------------------------------
   // completeRandomQuest
   // -------------------------------------------------------------------------
   const completeRandomQuest = (questId) => {
+    let capturedLevelUp = null
+    let capturedBadges = []
+
     setState(prev => {
       if (!prev) return prev
 
@@ -248,16 +266,16 @@ export function useGameState() {
       const updatedInventory = checkItemUnlocks(next.inventory, newLevel)
       next = { ...next, badges: updatedBadges, inventory: updatedInventory }
 
-      if (newLevel > prevLevel) {
-        setLevelUpInfo({ level: newLevel })
-      }
-      if (newlyUnlocked.length > 0) {
-        setNewBadges(bprev => [...bprev, ...newlyUnlocked])
-      }
+      // Capture side-effect values — setters are called after setState returns
+      if (newLevel > prevLevel) capturedLevelUp = { level: newLevel }
+      if (newlyUnlocked.length > 0) capturedBadges = newlyUnlocked
 
       saveState(next)
       return next
     })
+
+    if (capturedLevelUp) setLevelUpInfo(capturedLevelUp)
+    if (capturedBadges.length > 0) setNewBadges(prev => [...prev, ...capturedBadges])
   }
 
   // -------------------------------------------------------------------------
