@@ -1,0 +1,102 @@
+.feed-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.feed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.feed-date {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.feed-date-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.feed-date-value {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.feed-today-exp {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--gold-lt);
+}
+
+.feed-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.filter-chip {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 12px;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.filter-chip:hover {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.filter-chip.active {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.22);
+  font-weight: 600;
+}
+
+.feed-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.feed-empty {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.feed-empty-sub {
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.feed-add-btn {
+  background: var(--gold);
+  border: none;
+  border-radius: var(--radius-pill);
+  color: #000;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: auto;
+  transition: opacity 0.15s;
+}
+
+.feed-add-btn:hover {
+  opacity: 0.85;
+}

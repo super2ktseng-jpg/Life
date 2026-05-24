@@ -1,0 +1,35 @@
+.entry-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  transition: background 0.15s;
+}
+.entry-card:hover { background: var(--card-h); }
+
+.entry-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.entry-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.entry-title { font-size: 13px; }
+.entry-meta { font-size: 11px; color: var(--muted); }
+
+.entry-pts {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold-lt);
+}
