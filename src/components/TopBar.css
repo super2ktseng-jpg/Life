@@ -2,10 +2,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 4px 16px;
+  padding: 0 4px 14px;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
+  flex-shrink: 0;
 }
+
 .topbar-title {
   display: flex;
   align-items: center;
@@ -18,15 +20,53 @@
   color: var(--gold-lt);
   letter-spacing: -0.02em;
 }
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .topbar-streak {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(224,140,10,0.15);
-  border: 1px solid rgba(224,140,10,0.3);
+  background: rgba(224,140,10,0.12);
+  border: 1px solid rgba(224,140,10,0.28);
   border-radius: var(--radius-pill);
   padding: 4px 12px;
   font-size: 13px;
   font-weight: 600;
   color: var(--gold-lt);
+}
+
+/* Reset button — subtle danger style */
+.reset-btn {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-pill);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.reset-btn:hover {
+  color: #f87171;
+  border-color: rgba(239,68,68,0.3);
+  background: rgba(239,68,68,0.06);
+}
+.reset-btn.reset-confirm {
+  color: #f87171;
+  border-color: rgba(239,68,68,0.5);
+  background: rgba(239,68,68,0.12);
+  animation: pulse-red 0.6s ease-in-out infinite alternate;
+}
+@keyframes pulse-red {
+  from { border-color: rgba(239,68,68,0.35); }
+  to   { border-color: rgba(239,68,68,0.65); }
 }

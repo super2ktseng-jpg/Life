@@ -3,24 +3,40 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:         #111118;
-  --card:       rgba(255,255,255,0.065);
-  --card-h:     rgba(255,255,255,0.09);
-  --border:     rgba(255,255,255,0.12);
+  /* Surfaces */
+  --bg:         #0d0d14;
+  --card:       rgba(255,255,255,0.055);
+  --card-h:     rgba(255,255,255,0.085);
+  --card-border:rgba(255,255,255,0.10);
+  --border:     rgba(255,255,255,0.10);
   --border-h:   rgba(255,255,255,0.22);
+
+  /* Brand */
   --gold:       #e08c0a;
   --gold-lt:    #fbbf24;
-  --gold-glow:  rgba(224,140,10,0.3);
+  --gold-dim:   #92601a;
+  --gold-glow:  rgba(224,140,10,0.28);
+
+  /* Semantic colours */
   --text:       #f1f5f9;
-  --muted:      #7a8394;
+  --text-2:     #cbd5e1;
+  --muted:      #64748b;
   --green:      #34d399;
   --blue:       #60a5fa;
   --pink:       #f472b6;
   --purple:     #a78bfa;
+  --red:        #f87171;
+  --red-bg:     rgba(239,68,68,0.10);
+
+  /* Radii */
   --radius-lg:  14px;
   --radius-md:  10px;
-  --radius-sm:  8px;
+  --radius-sm:  6px;
   --radius-pill:99px;
+
+  /* Elevation shadows */
+  --shadow-sm:  0 1px 4px rgba(0,0,0,0.35);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.45);
 }
 
 body {
@@ -28,24 +44,33 @@ body {
   color: var(--text);
   font-family: 'Inter', system-ui, sans-serif;
   font-size: 14px;
-  line-height: 1.5;
-  min-height: 100vh;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
 }
 
 button { font-family: inherit; cursor: pointer; }
 
+/* ── Card ── */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 16px;
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
 }
 
+/* Section label */
 .sec-label {
   font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 12px;
+}
+
+/* Focus ring — visible for keyboard nav */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
 }

@@ -281,6 +281,17 @@ export function useGameState() {
   }
 
   // -------------------------------------------------------------------------
+  // resetState — clears all progress (for testing)
+  // -------------------------------------------------------------------------
+  const resetState = () => {
+    const fresh = buildInitialState()
+    saveState(fresh)
+    setState(fresh)
+    setLevelUpInfo(null)
+    setNewBadges([])
+  }
+
+  // -------------------------------------------------------------------------
   // deleteEntry
   // -------------------------------------------------------------------------
   const deleteEntry = (id) => {
@@ -302,6 +313,7 @@ export function useGameState() {
     state,
     addEntry,
     deleteEntry,
+    resetState,
     completeRandomQuest,
     levelUpInfo,
     clearLevelUp,

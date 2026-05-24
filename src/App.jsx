@@ -13,6 +13,7 @@ function App() {
     state,
     addEntry,
     deleteEntry,
+    resetState,
     completeRandomQuest,
     levelUpInfo,
     clearLevelUp,
@@ -31,7 +32,7 @@ function App() {
 
   return (
     <div className="app-wrapper">
-      <TopBar streak={state.profile.streak} />
+      <TopBar streak={state.profile.streak} onReset={resetState} />
 
       <div className="app-layout">
         <div className="left-col">

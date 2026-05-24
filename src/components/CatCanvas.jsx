@@ -1,40 +1,34 @@
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef } from 'react'
 import { CAT_PIXELS, CAT_WIDTH, CAT_HEIGHT } from '../data/catPixels'
 
-// Row 7 replacement for blink (eyes closed — replace iris/pupil with orange)
+// Row 7 with eyes closed (iris+pupil → outline line, sparkle → orange)
 const BLINK_ROW_7 = [
   null, '#1a0a00', '#d97706', '#d97706', '#1a0a00', '#d97706',
   '#d97706', '#d97706', '#d97706', '#1a0a00', '#d97706', '#1a0a00', null, null,
 ]
 
-// Small pixel equipment drawn on canvas
 function drawEquipment(ctx, scale, level) {
   if (level < 5) return
-
   if (level >= 20) {
-    // Crown — 3 small purple gems above head (rows -1 to 0 area → draw at y=0)
-    const purple = '#a78bfa'
-    const gem    = '#7c3aed'
-    ;[[3,0],[6,0],[9,0]].forEach(([x, y]) => {
-      ctx.fillStyle = purple
+    // Crown — 3 violet gem dots above head
+    ;[[3, 0], [6, 0], [9, 0]].forEach(([x, y]) => {
+      ctx.fillStyle = '#a78bfa'
       ctx.fillRect(x * scale, y * scale, scale, scale)
-      ctx.fillStyle = gem
-      ctx.fillRect((x + 0.3) * scale, (y + 0.3) * scale, scale * 0.4, scale * 0.4)
+      ctx.fillStyle = '#6d28d9'
+      ctx.fillRect((x + 0.25) * scale, (y + 0.25) * scale, scale * 0.5, scale * 0.5)
     })
   } else if (level >= 10) {
-    // Shield — small blue emblem on chest (row 12, cols 5-7)
-    const blue = '#60a5fa'
-    const dark = '#1e40af'
-    ctx.fillStyle = blue
-    ctx.fillRect(5 * scale, 12 * scale, scale, scale)
-    ctx.fillRect(6 * scale, 11 * scale, scale, scale * 2)
-    ctx.fillRect(7 * scale, 12 * scale, scale, scale)
-    ctx.fillStyle = dark
+    // Shield glyph — small blue 3×3 on chest
+    const pts = [[5,11],[6,11],[7,11],[5,12],[7,12],[6,12]]
+    pts.forEach(([x, y]) => {
+      ctx.fillStyle = '#60a5fa'
+      ctx.fillRect(x * scale, y * scale, scale, scale)
+    })
+    ctx.fillStyle = '#1e40af'
     ctx.fillRect(6 * scale, 12 * scale, scale, scale)
-  } else if (level >= 5) {
-    // Potion glow — amber dot on shoulder (row 11, col 10)
-    const amber = '#fbbf24'
-    ctx.fillStyle = amber
+  } else {
+    // Potion glow dot — amber on right shoulder
+    ctx.fillStyle = '#fbbf24'
     ctx.fillRect(10 * scale, 11 * scale, scale, scale)
     ctx.fillStyle = '#fef3c7'
     ctx.fillRect((10.25) * scale, (11.25) * scale, scale * 0.5, scale * 0.5)
@@ -44,45 +38,75 @@ function drawEquipment(ctx, scale, level) {
 export default function CatCanvas({ scale = 8, level = 1 }) {
   const canvasRef = useRef(null)
 
-  const drawFrame = useCallback((blinking) => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+  // Keep latest scale/level accessible inside the animation closure without restarts
+  const scaleRef = useRef(scale)
+  const levelRef = useRef(level)
+  useEffect(() => { scaleRef.current = scale }, [scale])
+  useEffect(() => { levelRef.current = level }, [level])
 
-    CAT_PIXELS.forEach((row, y) => {
-      const drawRow = (blinking && y === 7) ? BLINK_ROW_7 : row
-      drawRow.forEach((color, x) => {
-        if (!color) return
-        ctx.fillStyle = color
-        ctx.fillRect(x * scale, y * scale, scale, scale)
-      })
-    })
-
-    drawEquipment(ctx, scale, level)
-  }, [scale, level])
-
-  // Draw on mount / whenever scale or level changes
+  // Single rAF loop + blink scheduler — runs once for the lifetime of the component
   useEffect(() => {
-    drawFrame(false)
-  }, [drawFrame])
-
-  // Blink interval
-  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    let rafId
+    let lastTs = 0
+    let tick = 0
+    const blinkState = { active: false }
     let blinkTimeout
-    function scheduleNextBlink() {
-      const delay = 2500 + Math.random() * 2000 // 2.5–4.5 s between blinks
-      blinkTimeout = setTimeout(() => {
-        drawFrame(true)                         // eyes closed
-        setTimeout(() => {
-          drawFrame(false)                      // eyes open
-          scheduleNextBlink()
-        }, 140)
-      }, delay)
+
+    function draw() {
+      const canvas = canvasRef.current
+      if (!canvas) return
+      const ctx = canvas.getContext('2d')
+      const s = scaleRef.current
+      const l = levelRef.current
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      // Tail sway: ±1 px horizontal, ~4 s cycle
+      const tailOffset = prefersReduced ? 0 : Math.round(Math.sin(tick * 0.06) * 1.3)
+
+      CAT_PIXELS.forEach((row, y) => {
+        const drawRow = (!prefersReduced && blinkState.active && y === 7) ? BLINK_ROW_7 : row
+        const xOff = (y === 19) ? tailOffset : 0
+        drawRow.forEach((color, x) => {
+          if (!color) return
+          const dx = x + xOff
+          if (dx < 0 || dx >= CAT_WIDTH) return
+          ctx.fillStyle = color
+          ctx.fillRect(dx * s, y * s, s, s)
+        })
+      })
+
+      drawEquipment(ctx, s, l)
+      tick++
     }
-    scheduleNextBlink()
-    return () => clearTimeout(blinkTimeout)
-  }, [drawFrame])
+
+    function loop(ts) {
+      // ~20 fps — no reason to redraw at 60fps for pixel art
+      if (ts - lastTs >= 50) {
+        lastTs = ts
+        draw()
+      }
+      rafId = requestAnimationFrame(loop)
+    }
+
+    function scheduleBlink() {
+      blinkTimeout = setTimeout(() => {
+        blinkState.active = true
+        setTimeout(() => {
+          blinkState.active = false
+          scheduleBlink()
+        }, 150)
+      }, 2500 + Math.random() * 2500)
+    }
+
+    rafId = requestAnimationFrame(loop)
+    if (!prefersReduced) scheduleBlink()
+
+    return () => {
+      cancelAnimationFrame(rafId)
+      clearTimeout(blinkTimeout)
+    }
+  }, []) // intentional empty deps — uses refs for live values
 
   return (
     <canvas
@@ -90,6 +114,8 @@ export default function CatCanvas({ scale = 8, level = 1 }) {
       width={CAT_WIDTH * scale}
       height={CAT_HEIGHT * scale}
       style={{ imageRendering: 'pixelated', display: 'block' }}
+      aria-label="虎斑貓像素藝術"
+      role="img"
     />
   )
 }

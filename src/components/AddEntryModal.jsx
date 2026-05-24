@@ -26,7 +26,7 @@ export default function AddEntryModal({ onClose, onAdd }) {
   }
 
   return (
-    <div className="modal-backdrop" onClick={onClose}>
+    <div className="modal-backdrop">
       <div className="modal-box" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
           <h2 className="modal-title">新增紀錄</h2>

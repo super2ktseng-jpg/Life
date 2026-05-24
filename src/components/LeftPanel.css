@@ -16,16 +16,11 @@
   padding: 2px 8px; border-radius: var(--radius-pill);
 }
 
-/* Canvas wrap — bob animation */
+/* Canvas wrap — static, animation is canvas-internal (tail wag + blink) */
 .cat-canvas-wrap {
   display: flex;
   justify-content: center;
   padding: 12px 0;
-  animation: catBob 3s ease-in-out infinite;
-}
-@keyframes catBob {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-5px); }
 }
 
 /* Equipment badge overlay */

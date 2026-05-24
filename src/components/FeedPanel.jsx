@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import EntryCard from './EntryCard'
+import ActivityHeatMap from './ActivityHeatMap'
+import CatCanvas from './CatCanvas'
 import './FeedPanel.css'
 
 const CATEGORIES = [
@@ -31,13 +33,21 @@ export default function FeedPanel({ state, onOpenAdd, onDelete }) {
 
   return (
     <div className="feed-panel">
+
       {/* Date header */}
       <div className="feed-header">
         <div className="feed-date">
           <span className="feed-date-label">今日紀錄</span>
           <span className="feed-date-value">{formatDate(today)}</span>
         </div>
-        <div className="feed-today-exp">+{todayExp} EXP</div>
+        <div className="feed-today-exp">
+          {todayExp > 0 && <span className="feed-exp-badge">+{todayExp} EXP</span>}
+        </div>
+      </div>
+
+      {/* Activity Heatmap */}
+      <div className="card heatmap-card">
+        <ActivityHeatMap entries={state.entries} />
       </div>
 
       {/* Filter chips */}
@@ -50,7 +60,7 @@ export default function FeedPanel({ state, onOpenAdd, onDelete }) {
           <button
             key={cat.id}
             className={`filter-chip ${filter === cat.id ? 'active' : ''}`}
-            style={filter === cat.id ? { borderColor: cat.color, color: cat.color } : {}}
+            style={filter === cat.id ? { borderColor: cat.color, color: cat.color, background: `${cat.color}14` } : {}}
             onClick={() => setFilter(cat.id)}
           >{cat.label}</button>
         ))}
@@ -60,8 +70,13 @@ export default function FeedPanel({ state, onOpenAdd, onDelete }) {
       <div className="feed-list">
         {displayEntries.length === 0 ? (
           <div className="feed-empty">
-            <p>今天還沒有紀錄</p>
-            <p className="feed-empty-sub">點擊下方按鈕開始記錄！</p>
+            <div className="feed-empty-cat">
+              <CatCanvas scale={4} level={state.profile.level} />
+            </div>
+            <p className="feed-empty-title">
+              {filter === 'all' ? '今天還沒有紀錄' : `「${CATEGORIES.find(c => c.id === filter)?.label}」尚無紀錄`}
+            </p>
+            <p className="feed-empty-sub">點選右下角「新增紀錄」開始累積 EXP！</p>
           </div>
         ) : (
           displayEntries.map(entry => (
