@@ -1,0 +1,17 @@
+.right-panel { display: flex; flex-direction: column; gap: 12px; }
+
+.inventory-grid { display: flex; flex-direction: column; gap: 8px; }
+.inventory-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  position: relative;
+}
+.item-unlocked { border-color: rgba(224,140,10,0.3); }
+.item-locked { opacity: 0.35; }
+.item-emoji { font-size: 18px; }
+.item-name { font-size: 12px; flex: 1; }
+.item-rarity { font-size: 10px; color: var(--muted); text-transform: capitalize; }
+.item-lock { font-size: 11px; position: absolute; right: 8px; }
