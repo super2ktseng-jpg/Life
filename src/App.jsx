@@ -50,11 +50,17 @@ function App() {
         </div>
       </div>
 
+      {/* FAB — always-visible add button */}
+      <button className="fab-add" onClick={() => setShowAddModal(true)} aria-label="新增紀錄">
+        <span className="fab-icon">＋</span>
+        <span className="fab-text">新增紀錄</span>
+      </button>
+
       {showAddModal && (
         <AddEntryModal
           onClose={() => setShowAddModal(false)}
-          onAdd={(title, category, points) => {
-            addEntry(title, category, points)
+          onAdd={(title, category, points, description, link) => {
+            addEntry(title, category, points, description, link)
             setShowAddModal(false)
           }}
         />

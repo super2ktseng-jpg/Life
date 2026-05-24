@@ -9,15 +9,19 @@ const CATEGORIES = [
   { id: 'emotion',  label: '情感', color: '#f472b6' },
 ]
 
+const DESC_MAX = 100
+
 export default function AddEntryModal({ onClose, onAdd }) {
-  const [title, setTitle] = useState('')
-  const [category, setCategory] = useState('daily')
-  const [points, setPoints] = useState(10)
+  const [title, setTitle]           = useState('')
+  const [category, setCategory]     = useState('daily')
+  const [points, setPoints]         = useState(10)
+  const [description, setDescription] = useState('')
+  const [link, setLink]             = useState('')
 
   function handleSubmit(e) {
     e.preventDefault()
     if (!title.trim()) return
-    onAdd(title.trim(), category, Number(points))
+    onAdd(title.trim(), category, Number(points), description.trim(), link.trim())
     onClose()
   }
 
@@ -26,13 +30,13 @@ export default function AddEntryModal({ onClose, onAdd }) {
       <div className="modal-box" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
           <h2 className="modal-title">新增紀錄</h2>
-          <button className="modal-close" onClick={onClose}>✕</button>
+          <button className="modal-close" onClick={onClose} aria-label="關閉">✕</button>
         </div>
 
         <form onSubmit={handleSubmit}>
-          {/* Title input */}
+          {/* Title */}
           <div className="modal-field">
-            <label className="modal-label">事項描述</label>
+            <label className="modal-label">事項名稱 <span className="modal-required">*</span></label>
             <input
               className="modal-input"
               type="text"
@@ -40,10 +44,11 @@ export default function AddEntryModal({ onClose, onAdd }) {
               onChange={e => setTitle(e.target.value)}
               placeholder="我今天..."
               autoFocus
+              maxLength={80}
             />
           </div>
 
-          {/* Category selector */}
+          {/* Category */}
           <div className="modal-field">
             <label className="modal-label">分類</label>
             <div className="category-chips">
@@ -61,7 +66,7 @@ export default function AddEntryModal({ onClose, onAdd }) {
             </div>
           </div>
 
-          {/* Points input */}
+          {/* Points */}
           <div className="modal-field">
             <label className="modal-label">點數 (EXP)</label>
             <input
@@ -74,10 +79,48 @@ export default function AddEntryModal({ onClose, onAdd }) {
             />
           </div>
 
-          {/* Buttons */}
+          {/* Description */}
+          <div className="modal-field">
+            <label className="modal-label">
+              描述
+              <span className="modal-optional">（選填）</span>
+            </label>
+            <div className="modal-textarea-wrap">
+              <textarea
+                className="modal-textarea"
+                value={description}
+                onChange={e => setDescription(e.target.value.slice(0, DESC_MAX))}
+                placeholder="補充說明..."
+                rows={3}
+              />
+              <span className={`modal-char-count ${description.length >= DESC_MAX ? 'at-limit' : ''}`}>
+                {description.length}/{DESC_MAX}
+              </span>
+            </div>
+          </div>
+
+          {/* Link */}
+          <div className="modal-field">
+            <label className="modal-label">
+              連結
+              <span className="modal-optional">（選填）</span>
+            </label>
+            <input
+              className="modal-input"
+              type="url"
+              value={link}
+              onChange={e => setLink(e.target.value)}
+              placeholder="https://..."
+              inputMode="url"
+            />
+          </div>
+
+          {/* Actions */}
           <div className="modal-actions">
             <button type="button" className="btn-cancel" onClick={onClose}>取消</button>
-            <button type="submit" className="btn-submit" disabled={!title.trim()}>新增 +{points} EXP</button>
+            <button type="submit" className="btn-submit" disabled={!title.trim()}>
+              新增 +{points} EXP
+            </button>
           </div>
         </form>
       </div>

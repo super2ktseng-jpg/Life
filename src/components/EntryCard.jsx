@@ -23,7 +23,23 @@ export default function EntryCard({ entry }) {
       <span className="entry-dot" style={{ background: categoryColor }} />
       <div className="entry-body">
         <span className="entry-title">{entry.title}</span>
-        <span className="entry-meta">{categoryLabel} · {time}</span>
+        {entry.description && (
+          <span className="entry-desc">{entry.description}</span>
+        )}
+        <div className="entry-bottom">
+          <span className="entry-meta">{categoryLabel} · {time}</span>
+          {entry.link && (
+            <a
+              className="entry-link"
+              href={entry.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={e => e.stopPropagation()}
+            >
+              🔗
+            </a>
+          )}
+        </div>
       </div>
       <span className="entry-pts">+{entry.points}</span>
     </div>

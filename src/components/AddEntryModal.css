@@ -13,8 +13,10 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 24px;
-  width: 380px;
+  width: 420px;
   max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
   animation: slide-up 0.2s ease;
 }
 @keyframes slide-up {
@@ -95,3 +97,28 @@
 }
 .btn-submit:disabled { opacity: 0.4; cursor: default; }
 .btn-submit:not(:disabled):hover { opacity: 0.85; }
+
+/* New fields */
+.modal-required { color: var(--gold); margin-left: 2px; }
+.modal-optional { font-size: 10px; color: var(--muted); margin-left: 4px; font-weight: 400; text-transform: none; letter-spacing: 0; }
+
+.modal-textarea-wrap { position: relative; }
+.modal-textarea {
+  width: 100%; box-sizing: border-box;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font-size: 13px; font-family: inherit;
+  padding: 10px 12px 24px;
+  outline: none; resize: none;
+  transition: border-color 0.15s;
+  line-height: 1.5;
+}
+.modal-textarea:focus { border-color: var(--gold); }
+.modal-char-count {
+  position: absolute; bottom: 6px; right: 10px;
+  font-size: 10px; color: var(--muted);
+  pointer-events: none;
+}
+.modal-char-count.at-limit { color: #f472b6; }

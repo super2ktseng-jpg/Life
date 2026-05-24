@@ -159,7 +159,7 @@ export function useGameState() {
   // -------------------------------------------------------------------------
   // addEntry
   // -------------------------------------------------------------------------
-  const addEntry = (title, category, points) => {
+  const addEntry = (title, category, points, description = '', link = '') => {
     let capturedLevelUp = null
     let capturedBadges = []
 
@@ -173,6 +173,8 @@ export function useGameState() {
         date: today,
         category,
         title,
+        description,
+        link,
         points,
         createdAt: new Date().toISOString(),
       }

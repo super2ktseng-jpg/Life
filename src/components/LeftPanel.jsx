@@ -1,5 +1,6 @@
 import './LeftPanel.css'
 import CatCanvas from './CatCanvas'
+import RadarChart from './RadarChart'
 import { BADGE_DEFINITIONS } from '../data/badgeDefinitions'
 import { expForLevel, expAtLevelStart } from '../utils/levelUtils'
 
@@ -48,28 +49,19 @@ export default function LeftPanel({ state }) {
         </div>
       </div>
 
-      {/* Section 2: Category bars */}
-      <div className="card">
+      {/* Section 2: Radar chart */}
+      <div className="card radar-card">
         <div className="sec-label">分類統計</div>
-        {CATEGORIES.map(cat => {
-          const pts = catPtsMap[cat.id]
-          return (
-            <div key={cat.id} className="cat-bar-row">
-              <span className="cat-bar-dot" style={{ background: cat.color }} />
-              <span className="cat-bar-label">{cat.label}</span>
-              <div className="cat-bar-track">
-                <div
-                  className="cat-bar-fill"
-                  style={{
-                    width: `${maxPts > 0 ? (pts / maxPts) * 100 : 0}%`,
-                    background: cat.color,
-                  }}
-                />
-              </div>
-              <span className="cat-bar-pts">{pts}</span>
-            </div>
-          )
-        })}
+        <div className="radar-wrap">
+          <RadarChart
+            data={CATEGORIES.map(cat => ({
+              id:    cat.id,
+              label: cat.label,
+              color: cat.color,
+              value: catPtsMap[cat.id],
+            }))}
+          />
+        </div>
       </div>
 
       {/* Section 3: Stats grid */}

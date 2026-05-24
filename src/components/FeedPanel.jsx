@@ -70,10 +70,6 @@ export default function FeedPanel({ state, onOpenAdd }) {
         )}
       </div>
 
-      {/* Add button */}
-      <button className="feed-add-btn" onClick={onOpenAdd}>
-        ＋ 新增紀錄
-      </button>
     </div>
   )
 }

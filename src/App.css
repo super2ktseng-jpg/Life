@@ -10,3 +10,30 @@
 
 .left-col  { display: flex; flex-direction: column; gap: 12px; }
 .right-col { display: flex; flex-direction: column; gap: 12px; }
+
+/* Floating Action Button */
+.fab-add {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 50;
+  background: var(--gold);
+  border: none;
+  border-radius: var(--radius-pill);
+  color: #000;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 24px rgba(224,140,10,0.45);
+  transition: transform 0.15s ease, opacity 0.15s;
+  touch-action: manipulation;
+}
+.fab-add:hover  { transform: translateY(-2px); opacity: 0.9; }
+.fab-add:active { transform: scale(0.96); }
+.fab-icon { font-size: 18px; line-height: 1; }
+.fab-text { letter-spacing: 0.01em; }
