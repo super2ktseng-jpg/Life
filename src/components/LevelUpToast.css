@@ -1,0 +1,68 @@
+.levelup-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 200;
+  animation: lu-fade-in 0.2s ease;
+}
+@keyframes lu-fade-in { from { opacity: 0 } to { opacity: 1 } }
+
+.levelup-box {
+  text-align: center;
+  padding: 48px 64px;
+  position: relative;
+}
+
+.levelup-glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(224,140,10,0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: lu-pulse 1.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes lu-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8 }
+  50%       { transform: translate(-50%, -50%) scale(1.15); opacity: 1 }
+}
+
+.levelup-label {
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.levelup-number {
+  font-size: 80px; font-weight: 800;
+  color: var(--gold-lt);
+  line-height: 1;
+  text-shadow: 0 0 40px var(--gold-glow);
+  animation: lu-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+}
+@keyframes lu-pop {
+  from { transform: scale(0.5); opacity: 0 }
+  to   { transform: scale(1);   opacity: 1 }
+}
+
+.levelup-sub {
+  font-size: 16px; color: #e2e8f0;
+  margin-top: 16px; margin-bottom: 32px;
+  position: relative;
+}
+
+.levelup-btn {
+  background: var(--gold);
+  border: none; border-radius: var(--radius-pill);
+  color: #000; font-family: inherit;
+  font-size: 15px; font-weight: 700;
+  padding: 12px 32px;
+  cursor: pointer;
+  position: relative;
+  transition: opacity 0.15s;
+}
+.levelup-btn:hover { opacity: 0.85; }
