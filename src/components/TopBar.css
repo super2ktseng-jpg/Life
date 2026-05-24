@@ -1,0 +1,32 @@
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.topbar-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.topbar-icon { font-size: 20px; }
+.topbar-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gold-lt);
+  letter-spacing: -0.02em;
+}
+.topbar-streak {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(224,140,10,0.15);
+  border: 1px solid rgba(224,140,10,0.3);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold-lt);
+}
