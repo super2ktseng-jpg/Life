@@ -6,8 +6,13 @@
 .quest-card:last-child { border-bottom: none; }
 .quest-card.quest-done { opacity: 0.5; }
 .quest-card-left { display: flex; align-items: center; gap: 8px; flex: 1; }
-.quest-check { font-size: 14px; color: var(--muted); flex-shrink: 0; width: 16px; text-align: center; }
-.quest-check.checked { color: var(--green); font-weight: 700; }
+.quest-check {
+  color: var(--muted);
+  flex-shrink: 0;
+  width: 15px; height: 15px;
+  display: flex; align-items: center; justify-content: center;
+}
+.quest-check.checked { color: var(--green); }
 .quest-card-body { display: flex; flex-direction: column; gap: 2px; }
 .quest-title { font-size: 12px; }
 .quest-reward { font-size: 11px; color: var(--gold-lt); }
@@ -22,4 +27,13 @@
   transition: background 0.15s;
 }
 .quest-complete-btn:hover { background: rgba(224,140,10,0.3); }
-.quest-done-badge { font-size: 14px; color: var(--green); flex-shrink: 0; }
+.quest-done-badge {
+  color: var(--green);
+  flex-shrink: 0;
+  display: flex; align-items: center;
+}
+
+/* Touch target for complete button */
+.quest-complete-btn {
+  min-height: 32px;
+}

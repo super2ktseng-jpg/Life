@@ -13,7 +13,7 @@ export default function LevelUpToast({ level, onClose }) {
 
   return (
     <div className="levelup-backdrop" onClick={onClose}>
-      <div className="levelup-box">
+      <div className="levelup-box" role="status" aria-live="polite" aria-label={`升級！Level ${level}`}>
         <div className="levelup-glow" />
         <div className="levelup-label">LEVEL UP!</div>
         <div className="levelup-number">Lv.{level}</div>

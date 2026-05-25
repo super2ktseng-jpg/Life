@@ -4,15 +4,8 @@ import CatSprite from './CatSprite'
 import RadarChart from './RadarChart'
 import { BADGE_DEFINITIONS } from '../data/badgeDefinitions'
 import { ITEM_DEFINITIONS } from '../data/itemDefinitions'
+import { CATEGORIES } from '../data/categories'
 import { expForLevel, expAtLevelStart } from '../utils/levelUtils'
-
-const CATEGORIES = [
-  { id: 'daily',    label: '日常', color: '#fbbf24' },
-  { id: 'health',   label: '健康', color: '#34d399' },
-  { id: 'learning', label: '學習', color: '#60a5fa' },
-  { id: 'social',   label: '社群', color: '#a78bfa' },
-  { id: 'emotion',  label: '情感', color: '#f472b6' },
-]
 
 export default function LeftPanel({ state }) {
   const [statsOpen, setStatsOpen] = useState(false)

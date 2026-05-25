@@ -97,3 +97,11 @@
   letter-spacing: 0.12em;
   color: var(--muted);
 }
+
+/* prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .levelup-backdrop { animation: none; }
+  .levelup-glow     { animation: none; }
+  .levelup-number   { animation: none; }
+  .levelup-item     { animation: none; }
+}

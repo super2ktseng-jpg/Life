@@ -63,7 +63,7 @@
   font-family: inherit;
   font-size: 12px;
   font-weight: 500;
-  padding: 4px 14px;
+  padding: 7px 14px;        /* increased from 4px → 7px for ~36px height */
   cursor: pointer;
   transition: border-color 0.15s, color 0.15s, background 0.15s;
   touch-action: manipulation;
@@ -129,6 +129,11 @@
   font-weight: 600;
   color: var(--muted);
   letter-spacing: 0.03em;
+}
+
+/* prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .feed-exp-badge { animation: none; }
 }
 
 /* ── Empty state ── */

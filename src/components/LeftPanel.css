@@ -93,7 +93,7 @@
   font-family: inherit;
   font-size: 11px;
   font-weight: 600;
-  padding: 6px 12px;
+  padding: 10px 12px;       /* increased from 6px → 10px for ~36px height */
   cursor: pointer;
   letter-spacing: 0.06em;
   transition: color 0.15s, border-color 0.15s, background 0.15s;
@@ -133,6 +133,12 @@
   max-width: 100%;
 }
 
+/* prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .cat-equip-badge { animation: none; }
+  .xp-bar-fill     { transition: none; }
+}
+
 /* Badges */
 .badges-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
@@ -151,4 +157,4 @@
 }
 .badge-locked { opacity: 0.3; }
 .badge-emoji { font-size: 20px; }
-.badge-name { font-size: 9px; color: var(--muted); text-align: center; }
+.badge-name { font-size: 11px; color: var(--muted); text-align: center; }

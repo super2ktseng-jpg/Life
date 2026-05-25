@@ -53,9 +53,13 @@
 .entry-bottom { display: flex; align-items: center; gap: 6px; }
 .entry-meta { font-size: 11px; color: var(--muted); }
 .entry-link {
-  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
   text-decoration: none;
   opacity: 0.6;
+  padding: 4px;             /* expand hit area */
+  margin: -4px;
   transition: opacity 0.15s;
   line-height: 1;
 }
@@ -79,11 +83,23 @@
   opacity: 0.5;
 }
 
+/* ── Animated expand/collapse (grid trick — no height animation) ── */
+.entry-detail-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.22s ease;
+}
+.entry-expanded .entry-detail-wrap {
+  grid-template-rows: 1fr;
+}
+.entry-detail-inner {
+  overflow: hidden;
+}
+
 /* Expanded detail section */
 .entry-detail {
   padding: 0 12px 12px 30px;
   border-top: 1px solid rgba(255,255,255,0.06);
-  margin-top: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -102,6 +118,9 @@
   word-break: break-all;
   opacity: 0.8;
   transition: opacity 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 .entry-detail-link:hover { opacity: 1; }
 
@@ -112,6 +131,7 @@
   margin-top: 2px;
 }
 
+/* Touch targets: min-height 36px for action buttons */
 .entry-edit-btn {
   background: rgba(96,165,250,0.1);
   border: 1px solid rgba(96,165,250,0.25);
@@ -120,8 +140,12 @@
   font-family: inherit;
   font-size: 11px;
   font-weight: 600;
-  padding: 4px 12px;
+  padding: 7px 14px;
+  min-height: 36px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   transition: background 0.15s, border-color 0.15s;
 }
 .entry-edit-btn:hover {
@@ -137,11 +161,30 @@
   font-family: inherit;
   font-size: 11px;
   font-weight: 600;
-  padding: 4px 12px;
+  padding: 7px 14px;
+  min-height: 36px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   transition: background 0.15s, border-color 0.15s;
 }
 .entry-delete-btn:hover {
   background: rgba(239,68,68,0.2);
   border-color: rgba(239,68,68,0.4);
+}
+.entry-delete-btn.delete-confirm {
+  background: rgba(239,68,68,0.22);
+  border-color: rgba(239,68,68,0.55);
+  animation: pulse-delete 0.5s ease-in-out infinite alternate;
+}
+@keyframes pulse-delete {
+  from { border-color: rgba(239,68,68,0.4); }
+  to   { border-color: rgba(239,68,68,0.7); }
+}
+
+/* prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .entry-detail-wrap { transition: none; }
+  .entry-delete-btn.delete-confirm { animation: none; }
 }
