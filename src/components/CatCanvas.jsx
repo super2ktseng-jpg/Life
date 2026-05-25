@@ -1,13 +1,14 @@
 import { useEffect, useRef } from 'react'
 import { CAT_PIXELS, CAT_WIDTH, CAT_HEIGHT } from '../data/catPixels'
 
-// Eyes are rows 6 & 7 — both solid 2×2 black when open.
-// Blink replaces those rows with all-orange (closed eyelids).
-// Row open:  [k, o, o, k, k, o, o, o, k, k, o, o, k, _]
-// Row blink: [k, o, o, o, o, o, o, o, o, o, o, o, k, _]
+// Eyes are rows 6 & 7 (16-wide grid).
+// Row 6 open:  [k, o, o, w, k, o, o, o, o, k, w, o, o, k, _, _]  ← sparkle at 3 & 10
+// Row 7 open:  [k, o, o, k, k, o, o, o, o, k, k, o, o, k, _, _]  ← solid black
+// Blink replaces both rows with all-orange (closed eyelids), 16 elements.
 const BLINK_EYE = [
   '#1a1a1a', '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#e8920a',
-  '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#1a1a1a', null,
+  '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#e8920a',
+  '#e8920a', '#1a1a1a', null, null,
 ]
 
 function drawEquipment(ctx, scale, level) {
@@ -70,7 +71,7 @@ export default function CatCanvas({ scale = 8, level = 1 }) {
       CAT_PIXELS.forEach((row, y) => {
         const isEyeRow = y === 6 || y === 7
         const drawRow = (!prefersReduced && blinkState.active && isEyeRow) ? BLINK_EYE : row
-        const xOff = (y === 19) ? tailOffset : 0
+        const xOff = (y === 21) ? tailOffset : 0
         drawRow.forEach((color, x) => {
           if (!color) return
           const dx = x + xOff

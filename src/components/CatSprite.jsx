@@ -5,6 +5,7 @@
  */
 import { useState } from 'react'
 import CatCanvas from './CatCanvas'
+import { CAT_WIDTH } from '../data/catPixels'
 import './CatSprite.css'
 
 export default function CatSprite({ scale = 8, level = 1 }) {
@@ -16,11 +17,11 @@ export default function CatSprite({ scale = 8, level = 1 }) {
   }
 
   return (
-    <div className="cat-sprite-wrap" style={{ width: 14 * scale }}>
+    <div className="cat-sprite-wrap" style={{ width: CAT_WIDTH * scale }}>
       <img
         src={`${import.meta.env.BASE_URL}cat.png`}
         className="cat-sprite"
-        width={14 * scale}
+        width={CAT_WIDTH * scale}
         alt="虎斑貓像素藝術"
         draggable={false}
         onError={() => setImgFailed(true)}
