@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './LeftPanel.css'
-import CatCanvas from './CatCanvas'
+import CatSprite from './CatSprite'
 import RadarChart from './RadarChart'
 import { BADGE_DEFINITIONS } from '../data/badgeDefinitions'
 import { ITEM_DEFINITIONS } from '../data/itemDefinitions'
@@ -50,7 +50,7 @@ export default function LeftPanel({ state }) {
         <div className="cat-level-badge">Lv.{level}</div>
         <div className="cat-canvas-wrap">
           <div className="cat-canvas-inner">
-            <CatCanvas scale={8} level={level} />
+            <CatSprite scale={8} level={level} />
             {equippedItem && (
               <span className="cat-equip-badge" title={equippedItem.name}>
                 {equippedItem.emoji}

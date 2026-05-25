@@ -40,8 +40,10 @@ export default function RightPanel({ state, onCompleteRandomQuest }) {
                 title={unlocked ? def.name : `Lv.${def.unlockLevel} 解鎖`}
               >
                 <span className="item-emoji">{def.emoji}</span>
-                <span className="item-name">{def.name}</span>
-                <span className="item-rarity">{def.rarity}</span>
+                <div className="item-info">
+                  <span className="item-name">{def.name}</span>
+                  <span className="item-rarity">{def.rarity}</span>
+                </div>
                 {!unlocked && <span className="item-lock">🔒</span>}
               </div>
             )

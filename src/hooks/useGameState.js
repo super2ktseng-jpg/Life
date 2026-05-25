@@ -159,18 +159,19 @@ export function useGameState() {
   // -------------------------------------------------------------------------
   // addEntry
   // -------------------------------------------------------------------------
-  const addEntry = (title, category, points, description = '', link = '') => {
+  const addEntry = (title, category, points, description = '', link = '', date = null) => {
     let capturedLevelUp = null
     let capturedBadges = []
 
     setState(prev => {
       if (!prev) return prev
       const today = todayStr()
+      const entryDate = date ?? today
 
       // 1. New entry
       const newEntry = {
         id: crypto.randomUUID(),
-        date: today,
+        date: entryDate,
         category,
         title,
         description,
@@ -180,18 +181,20 @@ export function useGameState() {
       }
       const updatedEntries = [...prev.entries, newEntry]
 
-      // 2. Calculate quest rewards
+      // 2. Calculate quest rewards (only for today's entries)
       let questReward = 0
       let updatedDaily = prev.quests.daily
 
-      // daily-health auto-complete
-      if (category === 'health') {
-        const healthQuest = updatedDaily.find(q => q.id === 'daily-health')
-        if (healthQuest && !healthQuest.completed) {
-          questReward += healthQuest.reward
-          updatedDaily = updatedDaily.map(q =>
-            q.id === 'daily-health' ? { ...q, completed: true } : q
-          )
+      if (entryDate === today) {
+        // daily-health auto-complete
+        if (category === 'health') {
+          const healthQuest = updatedDaily.find(q => q.id === 'daily-health')
+          if (healthQuest && !healthQuest.completed) {
+            questReward += healthQuest.reward
+            updatedDaily = updatedDaily.map(q =>
+              q.id === 'daily-health' ? { ...q, completed: true } : q
+            )
+          }
         }
       }
 
@@ -304,6 +307,37 @@ export function useGameState() {
   }
 
   // -------------------------------------------------------------------------
+  // updateEntry — edits title / category / points / description / link.
+  // If points changed, adjusts total EXP by the delta.
+  // -------------------------------------------------------------------------
+  const updateEntry = (id, changes) => {
+    setState(prev => {
+      if (!prev) return prev
+      const entry = prev.entries.find(e => e.id === id)
+      if (!entry) return prev
+
+      const oldPoints = entry.points
+      const newPoints = changes.points !== undefined ? Number(changes.points) : oldPoints
+      const delta = newPoints - oldPoints
+
+      const updatedEntries = prev.entries.map(e =>
+        e.id === id ? { ...e, ...changes, points: newPoints } : e
+      )
+
+      const newExp   = prev.profile.exp + delta
+      const newLevel = levelFromExp(newExp)
+
+      const next = {
+        ...prev,
+        entries: updatedEntries,
+        profile: { ...prev.profile, exp: newExp, level: newLevel },
+      }
+      saveState(next)
+      return next
+    })
+  }
+
+  // -------------------------------------------------------------------------
   // Clearers
   // -------------------------------------------------------------------------
   const clearLevelUp = () => setLevelUpInfo(null)
@@ -313,6 +347,7 @@ export function useGameState() {
     state,
     addEntry,
     deleteEntry,
+    updateEntry,
     resetState,
     completeRandomQuest,
     levelUpInfo,

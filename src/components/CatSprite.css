@@ -1,0 +1,50 @@
+.cat-sprite-wrap {
+  position: relative;
+  display: inline-block;
+  line-height: 0; /* prevent baseline gap under img */
+}
+
+.cat-sprite {
+  display: block;
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  animation: catSpriteFloat 3s ease-in-out infinite;
+}
+
+@keyframes catSpriteFloat {
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-3px); }
+}
+
+/* ── Blink eyelids ───────────────────────────────────────────────────────── */
+/* Two dark ovals briefly overlaid on each eye.
+   Positions are % of the container — tune if your PNG crops differently.
+   Reference: eyes sit at roughly 37-49% from top of image.
+   Left eye  center: ~26% from left  |  Right eye center: ~72% from left  */
+.cat-eyelid {
+  position: absolute;
+  background: #4e3928;      /* brownish matching fur above the eyes */
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.cat-eyelid-l {
+  top:    37%;
+  left:   14%;
+  width:  24%;
+  height: 13%;
+}
+
+.cat-eyelid-r {
+  top:    37%;
+  right:  12%;
+  width:  24%;
+  height: 13%;
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .cat-sprite { animation: none; }
+}

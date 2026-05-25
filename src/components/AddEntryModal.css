@@ -100,6 +100,26 @@
   background: rgba(224,140,10,0.04);
 }
 
+/* ── Date input ── */
+.modal-date-input {
+  color-scheme: dark;
+  cursor: pointer;
+}
+.modal-date-badge {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  background: rgba(251,191,36,0.15);
+  color: var(--gold);
+  border: 1px solid rgba(251,191,36,0.3);
+  vertical-align: middle;
+}
+
 /* ── Category chips ── */
 .category-chips {
   display: flex;

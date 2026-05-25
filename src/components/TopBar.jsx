@@ -19,7 +19,7 @@ export default function TopBar({ streak, onReset }) {
     <header className="topbar">
       <div className="topbar-title">
         <span className="topbar-icon" aria-hidden="true">⚔️</span>
-        <span className="topbar-name">Life RPG</span>
+        <span className="topbar-name">Super PRO</span>
       </div>
 
       <div className="topbar-right">

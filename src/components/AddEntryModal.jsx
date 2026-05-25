@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { todayStr } from '../utils/dateUtils'
 import './AddEntryModal.css'
 
 const CATEGORIES = [
@@ -12,12 +13,15 @@ const CATEGORIES = [
 const DESC_MAX = 100
 const POINT_PRESETS = [5, 10, 20, 30, 50]
 
-export default function AddEntryModal({ onClose, onAdd }) {
-  const [title, setTitle]           = useState('')
-  const [category, setCategory]     = useState('daily')
-  const [points, setPoints]         = useState(10)
-  const [description, setDescription] = useState('')
-  const [link, setLink]             = useState('')
+export default function AddEntryModal({ onClose, onAdd, editEntry, onUpdate }) {
+  const isEditing = !!editEntry
+
+  const [title, setTitle]             = useState(editEntry?.title       ?? '')
+  const [category, setCategory]       = useState(editEntry?.category    ?? 'daily')
+  const [points, setPoints]           = useState(editEntry?.points      ?? 10)
+  const [description, setDescription] = useState(editEntry?.description ?? '')
+  const [link, setLink]               = useState(editEntry?.link        ?? '')
+  const [date, setDate]               = useState(editEntry?.date        ?? todayStr())
 
   // ESC to close
   useEffect(() => {
@@ -33,7 +37,18 @@ export default function AddEntryModal({ onClose, onAdd }) {
   function handleSubmit(e) {
     e.preventDefault()
     if (!title.trim()) return
-    onAdd(title.trim(), category, Number(points), description.trim(), link.trim())
+    if (isEditing) {
+      onUpdate(editEntry.id, {
+        title: title.trim(),
+        category,
+        points: Number(points),
+        description: description.trim(),
+        link: link.trim(),
+        date,
+      })
+    } else {
+      onAdd(title.trim(), category, Number(points), description.trim(), link.trim(), date)
+    }
   }
 
   const activeCat = CATEGORIES.find(c => c.id === category)
@@ -44,7 +59,7 @@ export default function AddEntryModal({ onClose, onAdd }) {
 
         {/* Header */}
         <div className="modal-header">
-          <h2 className="modal-title" id="modal-title">新增紀錄</h2>
+          <h2 className="modal-title" id="modal-title">{isEditing ? '編輯紀錄' : '新增紀錄'}</h2>
           <button className="modal-close" onClick={onClose} aria-label="關閉">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
@@ -69,6 +84,24 @@ export default function AddEntryModal({ onClose, onAdd }) {
               autoFocus
               maxLength={80}
               autoComplete="off"
+            />
+          </div>
+
+          {/* Date */}
+          <div className="modal-field">
+            <label className="modal-label" htmlFor="entry-date">
+              日期
+              {date !== todayStr() && (
+                <span className="modal-date-badge">補記</span>
+              )}
+            </label>
+            <input
+              id="entry-date"
+              className="modal-input modal-date-input"
+              type="date"
+              value={date}
+              max={todayStr()}
+              onChange={e => setDate(e.target.value)}
             />
           </div>
 
@@ -175,7 +208,7 @@ export default function AddEntryModal({ onClose, onAdd }) {
               disabled={!title.trim()}
               style={activeCat ? { '--cat-color': activeCat.color } : {}}
             >
-              新增 +{points} EXP
+              {isEditing ? '儲存更改' : `新增 +${points} EXP`}
             </button>
           </div>
         </form>

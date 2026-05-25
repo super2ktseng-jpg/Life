@@ -1,10 +1,14 @@
 import { useEffect, useRef } from 'react'
 import { CAT_PIXELS, CAT_WIDTH, CAT_HEIGHT } from '../data/catPixels'
 
-// Row 7 with eyes closed (iris+pupil → outline line, sparkle → orange)
-const BLINK_ROW_7 = [
-  null, '#1a0a00', '#d97706', '#d97706', '#1a0a00', '#d97706',
-  '#d97706', '#d97706', '#d97706', '#1a0a00', '#d97706', '#1a0a00', null, null,
+// Eyes span rows 6 (top) and 7 (main). Both blink to lighter fur.
+// Row 6 open:  [_, k, l, g,  g,  b,  l,  b,  g,  g,  l, k, _, _]
+// Row 6 blink: [_, k, l, l,  l,  l,  l,  l,  l,  l,  l, k, _, _]
+// Row 7 open:  [_, k, l, H,  g,  P,  l,  P,  g,  H,  l, k, _, _]
+// Row 7 blink: [_, k, l, l,  l,  l,  l,  l,  l,  l,  l, k, _, _]
+const BLINK_EYE = [
+  null, '#1a0a00', '#e8920a', '#e8920a', '#e8920a', '#e8920a',
+  '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#1a0a00', null,
 ]
 
 function drawEquipment(ctx, scale, level) {
@@ -65,7 +69,8 @@ export default function CatCanvas({ scale = 8, level = 1 }) {
       const tailOffset = prefersReduced ? 0 : Math.round(Math.sin(tick * 0.06) * 1.3)
 
       CAT_PIXELS.forEach((row, y) => {
-        const drawRow = (!prefersReduced && blinkState.active && y === 7) ? BLINK_ROW_7 : row
+        const isEyeRow = y === 6 || y === 7
+        const drawRow = (!prefersReduced && blinkState.active && isEyeRow) ? BLINK_EYE : row
         const xOff = (y === 19) ? tailOffset : 0
         drawRow.forEach((color, x) => {
           if (!color) return

@@ -13,13 +13,15 @@ function App() {
     state,
     addEntry,
     deleteEntry,
+    updateEntry,
     resetState,
     completeRandomQuest,
     levelUpInfo,
     clearLevelUp,
   } = useGameState()
 
-  const [showAddModal, setShowAddModal] = useState(false)
+  const [showAddModal, setShowAddModal]   = useState(false)
+  const [editingEntry, setEditingEntry]   = useState(null)
 
   // Show loading state while hook initialises
   if (!state) {
@@ -43,6 +45,7 @@ function App() {
           state={state}
           onOpenAdd={() => setShowAddModal(true)}
           onDelete={deleteEntry}
+          onEdit={entry => setEditingEntry(entry)}
         />
 
         <div className="right-col">
@@ -59,12 +62,17 @@ function App() {
         <span className="fab-text">新增紀錄</span>
       </button>
 
-      {showAddModal && (
+      {(showAddModal || editingEntry) && (
         <AddEntryModal
-          onClose={() => setShowAddModal(false)}
-          onAdd={(title, category, points, description, link) => {
-            addEntry(title, category, points, description, link)
+          onClose={() => { setShowAddModal(false); setEditingEntry(null) }}
+          onAdd={(title, category, points, description, link, date) => {
+            addEntry(title, category, points, description, link, date)
             setShowAddModal(false)
+          }}
+          editEntry={editingEntry}
+          onUpdate={(id, changes) => {
+            updateEntry(id, changes)
+            setEditingEntry(null)
           }}
         />
       )}

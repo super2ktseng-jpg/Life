@@ -9,7 +9,7 @@ const CATEGORIES = [
   { id: 'emotion',  label: '情感', color: '#f472b6' },
 ]
 
-export default function EntryCard({ entry, onDelete }) {
+export default function EntryCard({ entry, onDelete, onEdit }) {
   const [expanded, setExpanded] = useState(false)
 
   const cat = CATEGORIES.find(c => c.id === entry.category)
@@ -24,6 +24,11 @@ export default function EntryCard({ entry, onDelete }) {
   function handleDelete(e) {
     e.stopPropagation()
     onDelete(entry.id)
+  }
+
+  function handleEdit(e) {
+    e.stopPropagation()
+    onEdit(entry)
   }
 
   return (
@@ -79,9 +84,10 @@ export default function EntryCard({ entry, onDelete }) {
               🔗 {entry.link}
             </a>
           )}
-          <button className="entry-delete-btn" onClick={handleDelete}>
-            🗑 刪除記錄
-          </button>
+          <div className="entry-actions">
+            <button className="entry-edit-btn" onClick={handleEdit}>✏️ 編輯</button>
+            <button className="entry-delete-btn" onClick={handleDelete}>🗑 刪除記錄</button>
+          </div>
         </div>
       )}
     </div>
