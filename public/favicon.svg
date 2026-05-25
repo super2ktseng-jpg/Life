@@ -2,90 +2,77 @@
   <!-- dark bg -->
   <rect x="-0.5" y="-0.5" width="12" height="11" rx="1.5" ry="1.5" fill="#0d0d14"/>
 
-  <!-- Row 1 (catRow 1) — ear tips: dark 2px each side -->
-  <rect x="2" y="0" width="2" height="1" fill="#1a0a00"/>
-  <rect x="7" y="0" width="2" height="1" fill="#1a0a00"/>
+  <!-- Row 0 (catRow 0) — ear tips 1px each -->
+  <rect x="2" y="0" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="8" y="0" width="1" height="1" fill="#1a1a1a"/>
 
-  <!-- Row 2 (catRow 2) — ear: orange outer + white inner -->
-  <rect x="1" y="1" width="1" height="1" fill="#1a0a00"/>
-  <rect x="2" y="1" width="1" height="1" fill="#e8920a"/>
-  <rect x="3" y="1" width="1" height="1" fill="#ffffff"/>
-  <rect x="4" y="1" width="1" height="1" fill="#1a0a00"/>
-  <rect x="6" y="1" width="1" height="1" fill="#1a0a00"/>
-  <rect x="7" y="1" width="1" height="1" fill="#ffffff"/>
-  <rect x="8" y="1" width="1" height="1" fill="#e8920a"/>
-  <rect x="9" y="1" width="1" height="1" fill="#1a0a00"/>
+  <!-- Row 1 (catRow 1) — ear silhouette 3px -->
+  <rect x="1" y="1" width="3" height="1" fill="#1a1a1a"/>
+  <rect x="7" y="1" width="3" height="1" fill="#1a1a1a"/>
 
-  <!-- Row 3 (catRow 3) — ear taller (same) -->
-  <rect x="1" y="2" width="1" height="1" fill="#1a0a00"/>
-  <rect x="2" y="2" width="1" height="1" fill="#e8920a"/>
-  <rect x="3" y="2" width="1" height="1" fill="#ffffff"/>
-  <rect x="4" y="2" width="1" height="1" fill="#1a0a00"/>
-  <rect x="6" y="2" width="1" height="1" fill="#1a0a00"/>
-  <rect x="7" y="2" width="1" height="1" fill="#ffffff"/>
+  <!-- Row 2 (catRow 2) — ear: orange + cream inner -->
+  <rect x="0" y="2" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="1" y="2" width="1" height="1" fill="#e8920a"/>
+  <rect x="2" y="2" width="1" height="1" fill="#ffc8a0"/>
+  <rect x="3" y="2" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="6" y="2" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="7" y="2" width="1" height="1" fill="#ffc8a0"/>
   <rect x="8" y="2" width="1" height="1" fill="#e8920a"/>
-  <rect x="9" y="2" width="1" height="1" fill="#1a0a00"/>
+  <rect x="9" y="2" width="1" height="1" fill="#1a1a1a"/>
 
-  <!-- Row 4 (catRow 4) — head top: ear joins + center dark stripe -->
-  <rect x="0" y="3" width="1" height="1" fill="#1a0a00"/>
-  <rect x="1" y="3" width="2" height="1" fill="#e8920a"/>
-  <rect x="3" y="3" width="1" height="1" fill="#1a0a00"/>
-  <rect x="4" y="3" width="1" height="1" fill="#e8920a"/>
-  <rect x="5" y="3" width="1" height="1" fill="#b06000"/>
-  <rect x="6" y="3" width="1" height="1" fill="#e8920a"/>
-  <rect x="7" y="3" width="1" height="1" fill="#1a0a00"/>
-  <rect x="8" y="3" width="2" height="1" fill="#e8920a"/>
-  <rect x="10" y="3" width="1" height="1" fill="#1a0a00"/>
+  <!-- Row 3 (catRow 3) same as row 2 -->
+  <rect x="0" y="3" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="1" y="3" width="1" height="1" fill="#e8920a"/>
+  <rect x="2" y="3" width="1" height="1" fill="#ffc8a0"/>
+  <rect x="3" y="3" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="6" y="3" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="7" y="3" width="1" height="1" fill="#ffc8a0"/>
+  <rect x="8" y="3" width="1" height="1" fill="#e8920a"/>
+  <rect x="9" y="3" width="1" height="1" fill="#1a1a1a"/>
 
-  <!-- Row 5 (catRow 5) — forehead: 4 dark stripes -->
-  <rect x="0" y="4" width="1" height="1" fill="#1a0a00"/>
-  <rect x="1" y="4" width="1" height="1" fill="#e8920a"/>
-  <rect x="2" y="4" width="1" height="1" fill="#b06000"/>
-  <rect x="3" y="4" width="1" height="1" fill="#e8920a"/>
-  <rect x="4" y="4" width="1" height="1" fill="#b06000"/>
-  <rect x="5" y="4" width="1" height="1" fill="#e8920a"/>
-  <rect x="6" y="4" width="1" height="1" fill="#b06000"/>
-  <rect x="7" y="4" width="1" height="1" fill="#e8920a"/>
-  <rect x="8" y="4" width="1" height="1" fill="#b06000"/>
-  <rect x="9" y="4" width="1" height="1" fill="#e8920a"/>
-  <rect x="10" y="4" width="1" height="1" fill="#1a0a00"/>
+  <!-- Row 4 (catRow 4) — head top, full width -->
+  <rect x="-0.5" y="4" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="0" y="4" width="10" height="1" fill="#e8920a"/>
+  <rect x="10" y="4" width="1" height="1" fill="#1a1a1a"/>
 
-  <!-- Row 6 (catRow 6) — upper eye row: white sparkle + dark edge -->
-  <rect x="0" y="5" width="1" height="1" fill="#1a0a00"/>
-  <rect x="1" y="5" width="1" height="1" fill="#e8920a"/>
-  <rect x="2" y="5" width="1" height="1" fill="#ffffff"/><!-- sparkle L -->
-  <rect x="3" y="5" width="1" height="1" fill="#1a0a00"/><!-- dark edge L -->
-  <rect x="4" y="5" width="3" height="1" fill="#e8920a"/><!-- nose bridge -->
-  <rect x="7" y="5" width="1" height="1" fill="#1a0a00"/><!-- dark edge R -->
-  <rect x="8" y="5" width="1" height="1" fill="#ffffff"/><!-- sparkle R -->
+  <!-- Row 5 (catRow 5) — forehead M-stripes -->
+  <rect x="-0.5" y="5" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="0" y="5" width="1" height="1" fill="#e8920a"/>
+  <rect x="1" y="5" width="1" height="1" fill="#b06000"/>
+  <rect x="2" y="5" width="1" height="1" fill="#e8920a"/>
+  <rect x="3" y="5" width="1" height="1" fill="#b06000"/>
+  <rect x="4" y="5" width="2" height="1" fill="#e8920a"/>
+  <rect x="6" y="5" width="1" height="1" fill="#b06000"/>
+  <rect x="7" y="5" width="1" height="1" fill="#e8920a"/>
+  <rect x="8" y="5" width="1" height="1" fill="#b06000"/>
   <rect x="9" y="5" width="1" height="1" fill="#e8920a"/>
-  <rect x="10" y="5" width="1" height="1" fill="#1a0a00"/>
+  <rect x="10" y="5" width="1" height="1" fill="#1a1a1a"/>
 
-  <!-- Row 7 (catRow 7) — lower eye: solid black 2×2 -->
-  <rect x="0" y="6" width="1" height="1" fill="#1a0a00"/>
-  <rect x="1" y="6" width="1" height="1" fill="#e8920a"/>
-  <rect x="2" y="6" width="2" height="1" fill="#1a0a00"/><!-- black eye L -->
-  <rect x="4" y="6" width="3" height="1" fill="#e8920a"/><!-- nose bridge -->
-  <rect x="7" y="6" width="2" height="1" fill="#1a0a00"/><!-- black eye R -->
+  <!-- Row 6 (catRow 6) — solid black eyes 2×2 -->
+  <rect x="-0.5" y="6" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="0" y="6" width="2" height="1" fill="#e8920a"/>
+  <rect x="2" y="6" width="2" height="1" fill="#1a1a1a"/><!-- left eye -->
+  <rect x="4" y="6" width="3" height="1" fill="#e8920a"/>
+  <rect x="7" y="6" width="2" height="1" fill="#1a1a1a"/><!-- right eye -->
   <rect x="9" y="6" width="1" height="1" fill="#e8920a"/>
-  <rect x="10" y="6" width="1" height="1" fill="#1a0a00"/>
+  <rect x="10" y="6" width="1" height="1" fill="#1a1a1a"/>
 
-  <!-- Row 8 (catRow 8) — nose: 2-px pink + wide cheeks -->
-  <rect x="0" y="7" width="1" height="1" fill="#1a0a00"/>
-  <rect x="1" y="7" width="3" height="1" fill="#e8920a"/>
+  <!-- Row 7 (catRow 7) — nose -->
+  <rect x="-0.5" y="7" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="0" y="7" width="4" height="1" fill="#e8920a"/>
   <rect x="4" y="7" width="2" height="1" fill="#f0a0b0"/><!-- pink nose -->
   <rect x="6" y="7" width="4" height="1" fill="#e8920a"/>
-  <rect x="10" y="7" width="1" height="1" fill="#1a0a00"/>
+  <rect x="10" y="7" width="1" height="1" fill="#1a1a1a"/>
 
-  <!-- Row 9 (catRow 9) — white muzzle 7-px wide -->
-  <rect x="0" y="8" width="1" height="1" fill="#1a0a00"/>
-  <rect x="1" y="8" width="1" height="1" fill="#e8920a"/>
-  <rect x="2" y="8" width="7" height="1" fill="#ffffff"/><!-- wide white muzzle -->
-  <rect x="9" y="8" width="1" height="1" fill="#e8920a"/>
-  <rect x="10" y="8" width="1" height="1" fill="#1a0a00"/>
+  <!-- Row 8 (catRow 8) — white muzzle -->
+  <rect x="-0.5" y="8" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="0" y="8" width="2" height="1" fill="#e8920a"/>
+  <rect x="2" y="8" width="6" height="1" fill="#ffffff"/><!-- white muzzle -->
+  <rect x="8" y="8" width="2" height="1" fill="#e8920a"/>
+  <rect x="10" y="8" width="1" height="1" fill="#1a1a1a"/>
 
-  <!-- Row 10 (catRow 10) — chin: white -->
-  <rect x="1" y="9" width="1" height="1" fill="#1a0a00"/>
-  <rect x="2" y="9" width="7" height="1" fill="#ffffff"/>
-  <rect x="9" y="9" width="1" height="1" fill="#1a0a00"/>
+  <!-- Row 9 (catRow 9) — orange chin (no white = not a hamster!) -->
+  <rect x="0" y="9" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="1" y="9" width="8" height="1" fill="#e8920a"/>
+  <rect x="9" y="9" width="1" height="1" fill="#1a1a1a"/>
 </svg>

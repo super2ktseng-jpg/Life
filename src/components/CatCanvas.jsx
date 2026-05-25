@@ -1,14 +1,13 @@
 import { useEffect, useRef } from 'react'
 import { CAT_PIXELS, CAT_WIDTH, CAT_HEIGHT } from '../data/catPixels'
 
-// Eyes span rows 6 (top) and 7 (main). Both blink to lighter fur.
-// Row 6 open:  [_, k, l, g,  g,  b,  l,  b,  g,  g,  l, k, _, _]
-// Row 6 blink: [_, k, l, l,  l,  l,  l,  l,  l,  l,  l, k, _, _]
-// Row 7 open:  [_, k, l, H,  g,  P,  l,  P,  g,  H,  l, k, _, _]
-// Row 7 blink: [_, k, l, l,  l,  l,  l,  l,  l,  l,  l, k, _, _]
+// Eyes are rows 6 & 7 — both solid 2×2 black when open.
+// Blink replaces those rows with all-orange (closed eyelids).
+// Row open:  [k, o, o, k, k, o, o, o, k, k, o, o, k, _]
+// Row blink: [k, o, o, o, o, o, o, o, o, o, o, o, k, _]
 const BLINK_EYE = [
-  null, '#1a0a00', '#e8920a', '#e8920a', '#e8920a', '#e8920a',
-  '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#1a0a00', null,
+  '#1a1a1a', '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#e8920a',
+  '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#e8920a', '#1a1a1a', null,
 ]
 
 function drawEquipment(ctx, scale, level) {
